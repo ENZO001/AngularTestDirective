@@ -1,21 +1,72 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
+<p appHighlight #f="appHighlightExport">
+  Hello Angular
+</p>
+<button (click)="f.showMessage()">Show Message</button>
+<hr>
+
+<input type="text" name="firstName" ngModel #firstName="ngModel" required />
+<button [disabled]="firstName.invalid">disabled ? </button>
+<hr>
+
 <ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
+  <li *ngFor="let item of list; let i = index; ">
+    {{ i }} - {{ item }}
   </li>
 </ul>
+<button (click)="addNumber()">Add Number</button>
 
-<router-outlet></router-outlet>
+<ul>
+  <li *ngFor="let item of listValue; let i = index; trackBy">
+    {{ i }} - {{ item.value }}
+  </li>
+</ul>
+<button (click)="addValue()">Add Value</button>
+<hr>
+
+<div *ngIf="display;then showBlock else nothingBlock">Hello World</div>
+<div>
+  <ng-template #showBlock>
+    Hello World
+  </ng-template>
+</div>
+<div>
+  <ng-template #nothingBlock>
+    nothing to show
+  </ng-template>
+</div>
+<button (click)="display = !display">Toggle Display</button>
+<hr>
+
+<ng-container *ngIf="display">
+  <h1>123456789</h1>
+  <h1>987654321</h1>
+</ng-container>
+<hr>
+
+<ng-template #hello>
+  Hello World
+</ng-template>
+<div *ngTemplateOutlet="hello"></div>
+<div *ngTemplateOutlet="hello"></div>
+<div *ngTemplateOutlet="hello"></div>
+<hr>
+
+<ng-template #fuck let-gaga let-hohoho="another">
+  <div>{{ gaga | json }}</div>
+  <div>{{ hohoho | json }}</div>
+</ng-template>
+<div *ngTemplateOutlet="fuck; context: {$implicit: {value: 1}, another: {value: 2}}"></div>
+<hr>
+
+<ng-template appCarouselPage let-bg="background">
+  <span [style.background-color]="bg">Page 1</span>
+</ng-template>
+<ng-template appCarouselPage let-bg="background">
+  Page 2
+</ng-template>
+<ng-template appCarouselPage let-bg="background">
+  Page 3
+</ng-template>
+<div *ngTemplateOutlet="displayPage; context: {background: 'red'}"></div>
+<button (click)="next()">Next</button>
+參考網址  =>  https://ithelp.ithome.com.tw/articles/10205829
