@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, TemplateRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { CarouselPageDirective } from './carousel-page.directive';
+import { log } from 'util';
 
 @Component({
   selector: 'app-root',
@@ -46,5 +47,19 @@ export class AppComponent implements AfterViewInit {
   next() {
     this.index = (this.index + 1) % this.carouselPages.length;
     this.setDisplayPage(this.index);
+  }
+
+  x = (customerName: string, age: number) => {
+    console.log(customerName);
+    console.log(age);
+    return 123;
+  };
+
+  testDefalutParameter(x: number, y = 4) {
+    return x > y ? x : y;
+  }
+
+  callDefault() {
+    console.log(this.testDefalutParameter(10, null));
   }
 }
